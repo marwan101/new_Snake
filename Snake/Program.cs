@@ -372,20 +372,20 @@ namespace Snake
             //draws menu
             string drawMenu(List<string> items)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Snake Game");
+                Position menuPos = new Position((Console.WindowHeight - 1) / 2, ((Console.WindowWidth - 1) / 2));
+                Draw(menuPos, "Snake Game", ConsoleColor.Green);
                 Console.ResetColor();
                 for (int i = 0; i < items.Count; i++)
                 {
+                    Position menuItemPos = new Position((Console.WindowHeight - 1) / 2 + i + 1, ((Console.WindowWidth - 1) / 2));
                     if (i == index)
                     {
                         Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine(items[i]);
+                        Draw(menuItemPos, items[i], ConsoleColor.Black);
                     }
                     else
                     {
-                        Console.WriteLine(items[i]);
+                        Draw(menuItemPos, items[i], ConsoleColor.Gray);
                     }
                     Console.ResetColor();
 
