@@ -44,6 +44,7 @@ namespace Snake
             //the time till the food spawns again
             int foodDissapearTime = 16000;
             int userPoints;
+            int highScore = 0;
             int negativePoints = 0;
             double sleepTime = 100;
             int direction = right;
@@ -183,7 +184,7 @@ namespace Snake
                 snakeExitScreen();
 
                 //user points calculation
-                calculateUserPoints();
+                calculatePoints();
 
                 //displays points while playing game
                 displayPoints();
@@ -307,23 +308,27 @@ namespace Snake
             void endGame(string outcome)
             {
                 string points = $"Your points are: {userPoints}";
+                string score = $"High Score: {highScore}";
                 string congratulation = "Congratulations!!! You Win !!!";
                 string lose = "Game Over!";
                 Position gameOver = new Position((Console.WindowHeight - 1) / 2, ((Console.WindowWidth - 1) / 2) - points.Length / 2);
                 Position pointsPos = new Position(((Console.WindowHeight - 1) / 2) + 1, ((Console.WindowWidth - 1) / 2) - points.Length / 2);
+                Position scorePos = new Position(((Console.WindowHeight - 1) / 2) + 2, ((Console.WindowWidth - 1) / 2) - points.Length / 2);
 
                 if (outcome == "win")
                 {
                     Draw(gameOver, congratulation, ConsoleColor.Green);
                     Draw(pointsPos, points, ConsoleColor.Green);
+                    Draw(scorePos, score, ConsoleColor.Green);
                 }
                 else if (outcome == "lose")
                 {
                     Draw(gameOver, lose, ConsoleColor.Red);
                     Draw(pointsPos, points, ConsoleColor.Red);
+                    Draw(scorePos, score, ConsoleColor.Red);
                 }
 
-                storeValues(points);
+                storeValues(points, score);
             }
 
             //moves snake
@@ -341,12 +346,13 @@ namespace Snake
                 if (snakeNewHead.row >= Console.WindowHeight) snakeNewHead.row = 0;
                 if (snakeNewHead.col >= Console.WindowWidth) snakeNewHead.col = 0;
             }
-            void calculateUserPoints()
+            void calculatePoints()
             {
                 userPoints = (snakeElements.Count - 4) * 100 - negativePoints;
                 userPoints += specialFoodCounter * 300;
                 if (userPoints < 0) userPoints = 0;
                 userPoints = Math.Max(userPoints, 0);
+                if (userPoints > highScore) highScore = userPoints;
             }
             //displays the user points during gameplay
             void displayPoints()
@@ -408,12 +414,13 @@ namespace Snake
                 Console.Clear();
                 return "";
             }
-            void storeValues(string points)
+            void storeValues(string points, string score)
             {
                 Console.ReadLine();
                 using (StreamWriter sw = File.CreateText("..\\..\\user.txt"))
                 {
                     sw.WriteLine(points);
+                    sw.WriteLine(score);
                 }
             }
         }

@@ -33,3 +33,10 @@ D:\c#\NewSnake\Snake\obj\Debug\Snake.csprojAssemblyReference.cache
 D:\c#\NewSnake\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
 D:\c#\NewSnake\Snake\obj\Debug\Snake.exe
 D:\c#\NewSnake\Snake\obj\Debug\Snake.pdb
+C:\Users\Brendan\Desktop\new_Snake\Snake\obj\Debug\Snake.csprojAssemblyReference.cache
+C:\Users\Brendan\Desktop\new_Snake\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
+C:\Users\Brendan\Desktop\new_Snake\Snake\obj\Debug\Snake.exe
+C:\Users\Brendan\Desktop\new_Snake\Snake\obj\Debug\Snake.pdb
+C:\Users\Brendan\Desktop\new_Snake\Snake\bin\Debug\Snake.exe.config
+C:\Users\Brendan\Desktop\new_Snake\Snake\bin\Debug\Snake.exe
+C:\Users\Brendan\Desktop\new_Snake\Snake\bin\Debug\Snake.pdb
