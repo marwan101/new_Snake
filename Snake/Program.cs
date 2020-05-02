@@ -34,7 +34,7 @@ namespace Snake
         
         static void Main(string[] args)
         {
-            //PlayMusic();
+            PlayMusic();
             byte right = 0;
             byte left = 1;
             byte down = 2;
@@ -49,8 +49,6 @@ namespace Snake
             int direction = right;
             bool gameFlag = false;
             bool menuFlag = true;
-            int foodCounter = 0;
-            int specialFoodCounter = 0;
 
             //random number generator
             Random randomNumbersGenerator = new Random();
@@ -107,12 +105,6 @@ namespace Snake
             }
             while (snakeElements.Contains(food) || obstacles.Contains(food));
 
-            Position specialFood;
-            do
-            {
-                specialFood = newRandomPosition();
-            }
-            while (snakeElements.Contains(food) || obstacles.Contains(food));
 
 
             int index = 0;
@@ -156,10 +148,6 @@ namespace Snake
                 }
                 //Draws the food on the console
                 Draw(food, "@", ConsoleColor.Yellow);
-                if(foodCounter >= 2)
-                {
-                    Draw(specialFood, "$", ConsoleColor.Green);
-                }
 
                 //checks if user can input values through keyboard     
                 if (Console.KeyAvailable)
@@ -226,7 +214,6 @@ namespace Snake
                     while (snakeElements.Contains(food) || obstacles.Contains(food));
                     lastFoodTime = Environment.TickCount;
                     Draw(food, "@", ConsoleColor.Yellow);
-                    foodCounter++;
                     sleepTime--;
 
                     //spawns obstacles and ensures the obstacle do not spawn on food
@@ -240,17 +227,6 @@ namespace Snake
                     //adds obstacle in the list of obstacles and draw the obstacle
                     obstacles.Add(obstacle);
                     Draw(obstacle, "=", ConsoleColor.Cyan);
-                }
-                else if (snakeNewHead.col == specialFood.col && snakeNewHead.row == specialFood.row)
-                {
-                    Console.Beep();
-                    foodCounter = 0;
-                    specialFoodCounter++;
-                    do
-                    {
-                        specialFood = newRandomPosition();
-                    } while (snakeElements.Contains(specialFood) || obstacles.Contains(specialFood));
-                    Draw(specialFood, " ");
                 }
                 else 
                 {
@@ -343,7 +319,6 @@ namespace Snake
             void calculateUserPoints()
             {
                 userPoints = (snakeElements.Count - 4) * 100 - negativePoints;
-                userPoints += specialFoodCounter * 300;
                 if (userPoints < 0) userPoints = 0;
                 userPoints = Math.Max(userPoints, 0);
             }
