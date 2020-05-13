@@ -53,7 +53,8 @@ namespace Snake
             int specialFoodCounter = 0;
             string username = "";
             int direction;
-            int remainingLives = 3;
+            int remainingLives;
+            int prevUserPoints;
 
             //random number generator
             Random randomNumbersGenerator = new Random();
@@ -118,6 +119,8 @@ namespace Snake
             //initialisation of important variables needed to run the game
             void initialise()
             {
+                remainingLives = 3;
+                prevUserPoints = 0;
                 direction = right;
                 //array storing the direction of snake movement
                 directions = new Position[]
@@ -193,13 +196,9 @@ namespace Snake
                     else if (selectedMenuItem == "Username")
                     {
                         Console.Clear();
-                        menuFlag = false;
                         Position userNamePos = new Position((Console.WindowHeight - 1) / 2, ((Console.WindowWidth - 1) / 2) - 10);
                         Draw(userNamePos, "Enter your username: ", ConsoleColor.Green);
                         username = Console.ReadLine();
-                        Console.Clear();
-                        Draw(userNamePos, $"Your username is {username}", ConsoleColor.Green);
-                        menuFlag = true;
                     }
                     else if (selectedMenuItem == "Quit")
                     {
@@ -212,14 +211,19 @@ namespace Snake
             {
                 Console.Clear();
                 //the line to draw the menu after title
-                int menuLine = 1;
-                Position menuPos = new Position((Console.WindowHeight - 1) / 2, ((Console.WindowWidth - 1) / 2));
+                int menuLine = 0;
+                Position menuPos = new Position((Console.WindowHeight - 1) / 2 + menuLine, ((Console.WindowWidth - 1) / 2));
                 Draw(menuPos, "Snake Game", ConsoleColor.Green);
+                menuLine++;
+                Position hsPos = new Position((Console.WindowHeight - 1) / 2 + menuLine, ((Console.WindowWidth - 1) / 2));
+                Draw(hsPos, $"HighScore To Beat: {highScoreValue}", ConsoleColor.Yellow);
+                menuLine++;
                 Console.ResetColor();
                 if (username != "")
                 {
-                    Draw(new Position((Console.WindowHeight - 1) / 2 + menuLine, ((Console.WindowWidth - 1) / 2)), $"Username: {username}", ConsoleColor.Green);
-                    menuLine = 2;
+                    prevUserPoints = userExists(username);
+                    Draw(new Position((Console.WindowHeight - 1) / 2 + menuLine, ((Console.WindowWidth - 1) / 2)), $"Username: {username} , Previous Points: {prevUserPoints}", ConsoleColor.Green);
+                    menuLine++;      
                 }
                 for (int i = 0; i < items.Count; i++)
                 {
@@ -477,7 +481,7 @@ namespace Snake
             void userLives()
             {
                 string displaylives = $" Lives:{remainingLives}";
-                int pos = Console.WindowWidth - displaylives.Length;
+                int pos = Console.WindowWidth - (displaylives.Length + 20);
                 Position livesPosition = new Position(0, pos);
                 Draw(livesPosition, displaylives);
             }
@@ -541,13 +545,27 @@ namespace Snake
                     sw.Close();
                 }
             }
-            bool userExists(string user)
+            //checks if user exists and returns their previous score or else returns 0;
+            int userExists(string user)
             {
                 if (File.Exists($"..\\..\\{user}.txt"))
                 {
-                    return true;
+                    var userfile = File.Open($"..\\..\\{user}.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    using (StreamReader sr = new StreamReader(userfile))
+                    {
+                        string highscore = sr.ReadLine();
+                        if (highscore != null)
+                        {
+                            highscore.Trim();
+                            return Int32.Parse(highscore);
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
                 }
-                return false;
+                return 0;
             }
             //stores highscore in a text file
             int highScore()
