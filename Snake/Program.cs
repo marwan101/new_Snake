@@ -42,7 +42,7 @@ namespace Snake
             //means the last time the snakeElement ate
             int lastFoodTime;
             //the time till the food spawns again
-            int foodDissapearTime = 16000;
+            int foodDissapearTime = 10000;
             int userPoints;
             int highScoreValue = highScore();
             int negativePoints = 0;
@@ -72,6 +72,7 @@ namespace Snake
             //create Position objects and stores them in obstacles
             //These represent the obstacles on screen
             List<Position> obstacles;
+            List<Position> Nobstacles;
             //Creates the snake using a queue data structure of length 3
             //Queue operates as a first-in first-out array
             Queue<Position> snakeElements;
@@ -143,6 +144,18 @@ namespace Snake
                     newRandomPosition(),
                 };
 
+                //create Position objects and stores them in Nobstacles
+                //These represent the Nobstacles on screen
+                Nobstacles = new List<Position>()
+                {
+                //-1 prevents the Nobstacle from spawaning on the userpoints display
+                    newRandomPosition(),
+                    newRandomPosition(),
+                    newRandomPosition(),
+                    newRandomPosition(),
+                    newRandomPosition(),
+                };
+
                 //Creates the snake using a queue data structure of length 3
                 //Queue operates as a first-in first-out array
                 snakeElements = new Queue<Position>();
@@ -157,14 +170,14 @@ namespace Snake
                 {
                     food = newRandomPosition();
                 }
-                while (snakeElements.Contains(food) || obstacles.Contains(food));
+                while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
 
                 //create special food
                 do
                 {
                     specialFood = newRandomPosition();
                 }
-                while (snakeElements.Contains(food) || obstacles.Contains(food));
+                while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
 
 
             }
@@ -276,6 +289,11 @@ namespace Snake
                     {
                         Draw(obstacle, "=", ConsoleColor.Cyan);
                     }
+                    //This draws the Nobstacles on the screen
+                    foreach (Position Nobstacle in Nobstacles)
+                    {
+                        Draw(Nobstacle, "#", ConsoleColor.Red);
+                    }
                     //Draws the snake on the console
                     foreach (Position position in snakeElements)
                     {
@@ -316,8 +334,8 @@ namespace Snake
 
                     userLives();
 
-                    //checks snake collision with obstacles and ends the game
-                    if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
+                    //checks snake collision with obstacles and Nobstacles and ends the game
+                    if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead) || Nobstacles.Contains(snakeNewHead))
                     {
 
                         remainingLives = remainingLives - 1;
@@ -360,7 +378,7 @@ namespace Snake
                         {
                             food = newRandomPosition();
                         }
-                        while (snakeElements.Contains(food) || obstacles.Contains(food));
+                        while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
                         lastFoodTime = Environment.TickCount;
                         Draw(food, "@", ConsoleColor.Yellow);
                         foodCounter++;
@@ -377,6 +395,17 @@ namespace Snake
                         //adds obstacle in the list of obstacles and draw the obstacle
                         obstacles.Add(obstacle);
                         Draw(obstacle, "=", ConsoleColor.Cyan);
+
+                        //spawns Nobstacles and ensures the Nobstacle do not spawn on food
+                        Position Nobstacle;
+                        do
+                        {
+                            Nobstacle = newRandomPosition();
+                        }
+                        while (snakeElements.Contains(Nobstacle) || Nobstacles.Contains(Nobstacle) || (food.row != Nobstacle.row && food.col != Nobstacle.row));
+                        //adds obstacle in the list of obstacles and draw the obstacle
+                        Nobstacles.Add(Nobstacle);
+                        Draw(Nobstacle, "#", ConsoleColor.Red);
                     }
                     else if (snakeNewHead.col == specialFood.col && snakeNewHead.row == specialFood.row)
                     {
@@ -386,7 +415,7 @@ namespace Snake
                         do
                         {
                             specialFood = newRandomPosition();
-                        } while (snakeElements.Contains(specialFood) || obstacles.Contains(specialFood));
+                        } while (snakeElements.Contains(specialFood) || obstacles.Contains(specialFood) || Nobstacles.Contains(specialFood));
                         Draw(specialFood, " ");
                     }
                     else
@@ -410,7 +439,7 @@ namespace Snake
                         {
                             food = newRandomPosition();
                         }
-                        while (snakeElements.Contains(food) || obstacles.Contains(food));
+                        while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
                         lastFoodTime = Environment.TickCount;
                     }
                     Draw(food, "@", ConsoleColor.Yellow);
