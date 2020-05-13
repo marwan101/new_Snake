@@ -53,6 +53,7 @@ namespace Snake
             int specialFoodCounter = 0;
             string username = "";
             int direction;
+            int remainingLives = 3;
 
             //random number generator
             Random randomNumbersGenerator = new Random();
@@ -90,7 +91,7 @@ namespace Snake
             int index = 0;
             //initialises variables before game starts
             initialise();
-            
+
             //This method contains the menu logic which handles the whole game
             menu();
 
@@ -113,7 +114,7 @@ namespace Snake
                 Console.SetCursorPosition(pos.col, pos.row);
                 Console.Write(drawable);
             }
-            
+
             //initialisation of important variables needed to run the game
             void initialise()
             {
@@ -205,7 +206,7 @@ namespace Snake
                         Environment.Exit(0);
                     }
                 }
-            }            
+            }
             //draws menu
             string drawMenu(List<string> items)
             {
@@ -309,20 +310,28 @@ namespace Snake
                     //displays points while playing game
                     displayPoints();
 
+                    userLives();
+
                     //checks snake collision with obstacles and ends the game
                     if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
                     {
 
-                        endGame("lose");
-                        restart();
-                        
+                        remainingLives = remainingLives - 1;
+                        if (remainingLives == -1)
+                        {
+                            endGame("lose");
+                            restart();
+                        }
+                        //endGame("lose");
+                        //restart();
+
                     }
                     //winning game logic
                     if (userPoints >= 500)
                     {
                         endGame("win");
                         restart();
-                        
+
                     }
 
                     //sets the last element in the queue to be *
@@ -464,7 +473,14 @@ namespace Snake
                 Draw(pointsPosition, displaypoints);
             }
 
-            
+            //display remaining lives during gameplay
+            void userLives()
+            {
+                string displaylives = $" Lives:{remainingLives}";
+                int pos = Console.WindowWidth - displaylives.Length;
+                Position livesPosition = new Position(0, pos);
+                Draw(livesPosition, displaylives);
+            }
 
 
             //METHODS HANDLING END GAME
@@ -511,7 +527,7 @@ namespace Snake
 
             //for writing users and their points earned
             void storeValues(int points, string user, int hs)
-            {               
+            {
                 var fhs = File.Open("..\\..\\highScore.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 var us = File.Open($"..\\..\\{user}.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 using (StreamWriter sw = new StreamWriter(us))
@@ -520,7 +536,7 @@ namespace Snake
                     sw.Close();
                 }
                 using (StreamWriter sw = new StreamWriter(fhs))
-                {           
+                {
                     sw.WriteLine(hs);
                     sw.Close();
                 }
@@ -535,9 +551,9 @@ namespace Snake
             }
             //stores highscore in a text file
             int highScore()
-            {                
+            {
                 var fs = File.Open("..\\..\\highScore.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                using(StreamReader sr = new StreamReader(fs))
+                using (StreamReader sr = new StreamReader(fs))
                 {
                     string highscore = sr.ReadLine();
                     if (highscore != null)
@@ -548,7 +564,7 @@ namespace Snake
                     else
                     {
                         return 0;
-                    }   
+                    }
                 }
             }
         }
