@@ -104,7 +104,7 @@ namespace Snake
             //returns a new random position inside the console
             Position newRandomPosition()
             {
-                Position newPosition = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                Position newPosition = new Position(randomNumbersGenerator.Next(2, Console.WindowHeight),
                         randomNumbersGenerator.Next(2, Console.WindowWidth));
                 return newPosition;
             }
@@ -345,7 +345,7 @@ namespace Snake
                         }
                     }
                     //checks snake collision with obstacles and Nobstacles and ends the game
-                    if (snakeElements.Contains(snakeNewHead) || Nobstacles.Contains(snakeNewHead))
+                    if (Nobstacles.Contains(snakeNewHead))
                     {
                         Console.Beep(2000, 1500);
                         remainingLives = -1;
@@ -573,8 +573,12 @@ namespace Snake
                 var us = File.Open($"..\\..\\{user}.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 using (StreamWriter sw = new StreamWriter(us))
                 {
-                    sw.WriteLine($"{points}");
-                    sw.Close();
+                    if(points > userExists(user))
+                    {
+                        sw.WriteLine($"{points}");
+                        sw.Close();
+                    }
+                    
                 }
                 using (StreamWriter sw = new StreamWriter(fhs))
                 {
