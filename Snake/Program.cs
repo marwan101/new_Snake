@@ -34,7 +34,7 @@ namespace Snake
 
         static void Main(string[] args)
         {
-            //PlayMusic();
+            PlayMusic();
             byte right = 0;
             byte left = 1;
             byte down = 2;
@@ -190,7 +190,6 @@ namespace Snake
                     {
                         "Play",
                         "Username",
-                        "Difficulty",
                         "Quit"
                     };
                 Console.CursorVisible = false;
