@@ -334,21 +334,30 @@ namespace Snake
                     userLives();
 
                     //checks snake collision with obstacles and Nobstacles and ends the game
-                    if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead) || Nobstacles.Contains(snakeNewHead))
+                    if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
                     {
-
-                        remainingLives = remainingLives - 1;
-                        if (remainingLives == -1)
+                        Console.Beep(3000, 1000);
+                        remainingLives --;
+                        if (remainingLives < 0)
                         {
                             endGame("lose");
                             restart();
                         }
-                        //endGame("lose");
-                        //restart();
-
                     }
+                    //checks snake collision with obstacles and Nobstacles and ends the game
+                    if (snakeElements.Contains(snakeNewHead) || Nobstacles.Contains(snakeNewHead))
+                    {
+                        Console.Beep(2000, 1500);
+                        remainingLives = -1;
+                        if (remainingLives < 0)
+                        {
+                            endGame("lose");
+                            restart();
+                        }
+                    }
+
                     //winning game logic
-                    if (userPoints >= 500)
+                    if (userPoints >= 1000)
                     {
                         endGame("win");
                         restart();
