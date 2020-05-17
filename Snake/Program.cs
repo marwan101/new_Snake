@@ -34,7 +34,7 @@ namespace Snake
 
         static void Main(string[] args)
         {
-            PlayMusic();
+            //PlayMusic();
             byte right = 0;
             byte left = 1;
             byte down = 2;
@@ -569,39 +569,46 @@ namespace Snake
             //for writing users and their points earned
             void storeValues(int points, string user, int hs)
             {
-                var fhs = File.Open("..\\..\\highScore.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                var us = File.Open($"..\\..\\{user}.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                using (StreamWriter sw = new StreamWriter(us))
-                {
-                    if(points > userExists(user))
+                if(user.Length > 0)
+                {                  
+                    if (points > userExists(user))
                     {
-                        sw.WriteLine($"{points}");
+                        var us = File.Open($"..\\..\\{user}.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                        using (StreamWriter sw = new StreamWriter(us))
+                        {
+                            {
+                                sw.WriteLine($"{points}");
+                                sw.Close();
+                            }
+                        }
+                    }
+                    var fhs = File.Open("..\\..\\highScore.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    using (StreamWriter sw = new StreamWriter(fhs))
+                    {
+                        sw.WriteLine(hs);
                         sw.Close();
                     }
-                    
                 }
-                using (StreamWriter sw = new StreamWriter(fhs))
-                {
-                    sw.WriteLine(hs);
-                    sw.Close();
-                }
+                
             }
             //checks if user exists and returns their previous score or else returns 0;
             int userExists(string user)
             {
                 if (File.Exists($"..\\..\\{user}.txt"))
                 {
-                    var userfile = File.Open($"..\\..\\{user}.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    FileStream userfile = File.Open($"..\\..\\{user}.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     using (StreamReader sr = new StreamReader(userfile))
                     {
                         string highscore = sr.ReadLine();
                         if (highscore != null)
                         {
                             highscore.Trim();
+                            sr.Close();
                             return Int32.Parse(highscore);
                         }
                         else
                         {
+                            sr.Close();
                             return 0;
                         }
                     }
@@ -618,10 +625,12 @@ namespace Snake
                     if (highscore != null)
                     {
                         highscore.Trim();
+                        sr.Close();
                         return Int32.Parse(highscore);
                     }
                     else
                     {
+                        sr.Close();
                         return 0;
                     }
                 }
