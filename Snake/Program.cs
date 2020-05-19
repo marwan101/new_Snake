@@ -286,7 +286,7 @@ namespace Snake
                     //This draws the obstacles on the screen
                     foreach (Position obstacle in obstacles)
                     {
-                        Draw(obstacle, "=", ConsoleColor.Cyan);
+                        Draw(obstacle, "“▒", ConsoleColor.Cyan);
                     }
                     //This draws the Nobstacles on the screen
                     foreach (Position Nobstacle in Nobstacles)
@@ -299,10 +299,10 @@ namespace Snake
                         Draw(position, "*", ConsoleColor.DarkGray);
                     }
                     //Draws the food on the console
-                    Draw(food, "@", ConsoleColor.Yellow);
+                    Draw(food, "♥♥", ConsoleColor.Yellow);
                     if (foodCounter >= 5)
                     {
-                        Draw(specialFood, "$", ConsoleColor.Green);
+                        Draw(specialFood, "&", ConsoleColor.Green);
                     }
 
                     //checks if user can input values through keyboard     
@@ -388,7 +388,7 @@ namespace Snake
                         }
                         while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
                         lastFoodTime = Environment.TickCount;
-                        Draw(food, "@", ConsoleColor.Yellow);
+                        Draw(food, "♥♥", ConsoleColor.Yellow);
                         foodCounter++;
                         sleepTime--;
 
@@ -402,7 +402,7 @@ namespace Snake
                         while (snakeElements.Contains(obstacle) || obstacles.Contains(obstacle) || (food.row != obstacle.row && food.col != obstacle.row));
                         //adds obstacle in the list of obstacles and draw the obstacle
                         obstacles.Add(obstacle);
-                        Draw(obstacle, "=", ConsoleColor.Cyan);
+                        Draw(obstacle, "“▒", ConsoleColor.Cyan);
 
                         //spawns Nobstacles and ensures the Nobstacle do not spawn on food
                         Position Nobstacle;
@@ -450,7 +450,7 @@ namespace Snake
                         while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
                         lastFoodTime = Environment.TickCount;
                     }
-                    Draw(food, "@", ConsoleColor.Yellow);
+                    Draw(food, "♥♥", ConsoleColor.Yellow);
                     sleepTime -= 0.01;
 
                     Thread.Sleep((int)sleepTime);
