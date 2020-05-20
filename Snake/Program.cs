@@ -104,8 +104,8 @@ namespace Snake
             //returns a new random position inside the console
             Position newRandomPosition()
             {
-                Position newPosition = new Position(randomNumbersGenerator.Next(2, Console.WindowHeight),
-                        randomNumbersGenerator.Next(2, Console.WindowWidth));
+                Position newPosition = new Position(randomNumbersGenerator.Next(2, Console.WindowHeight - 1),
+                        randomNumbersGenerator.Next(2, Console.WindowWidth - 1));
                 return newPosition;
             }
 
@@ -286,7 +286,7 @@ namespace Snake
                     //This draws the obstacles on the screen
                     foreach (Position obstacle in obstacles)
                     {
-                        Draw(obstacle, "“▒", ConsoleColor.Cyan);
+                        Draw(obstacle, "▒", ConsoleColor.Cyan);
                     }
                     //This draws the Nobstacles on the screen
                     foreach (Position Nobstacle in Nobstacles)
@@ -402,7 +402,7 @@ namespace Snake
                         while (snakeElements.Contains(obstacle) || obstacles.Contains(obstacle) || (food.row != obstacle.row && food.col != obstacle.row));
                         //adds obstacle in the list of obstacles and draw the obstacle
                         obstacles.Add(obstacle);
-                        Draw(obstacle, "“▒", ConsoleColor.Cyan);
+                        Draw(obstacle, "▒", ConsoleColor.Cyan);
 
                         //spawns Nobstacles and ensures the Nobstacle do not spawn on food
                         Position Nobstacle;
@@ -489,12 +489,13 @@ namespace Snake
                 if (direction == down) Draw(snakeNewHead, "v", ConsoleColor.Gray); ;
             }
 
+            //added boundary
             void snakeExitScreen()
             {
-                if (snakeNewHead.col < 0) snakeNewHead.col = Console.WindowWidth - 1;
-                if (snakeNewHead.row < 0) snakeNewHead.row = Console.WindowHeight - 1;
-                if (snakeNewHead.row >= Console.WindowHeight) snakeNewHead.row = 0;
-                if (snakeNewHead.col >= Console.WindowWidth) snakeNewHead.col = 0;
+                if (snakeNewHead.col <= 1) snakeNewHead.col = Console.WindowWidth - 2;
+                if (snakeNewHead.row <= 0) snakeNewHead.row = Console.WindowHeight - 2;
+                if (snakeNewHead.row >= Console.WindowHeight - 1) snakeNewHead.row = 1;
+                if (snakeNewHead.col >= Console.WindowWidth - 1) snakeNewHead.col = 2;
             }
 
             void calculatePoints()
