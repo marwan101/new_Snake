@@ -76,6 +76,11 @@ namespace Snake
             //Creates the snake using a queue data structure of length 3
             //Queue operates as a first-in first-out array
             Queue<Position> snakeElements;
+            //boundaries
+            List<Position> leftBoundary;
+            List<Position> rightBoundary;
+            List<Position> bottomBoundary;
+
             //snake head position
             Position snakeHead;
             //snake head new position when the snake moves
@@ -100,6 +105,7 @@ namespace Snake
             //END OF GAME 
 
             //METHOD DEFINITIONS 
+
 
             //returns a new random position inside the console
             Position newRandomPosition()
@@ -162,8 +168,10 @@ namespace Snake
                 //sets the length of snake equal to 3
                 for (int i = 0; i <= 3; i++)
                 {
-                    snakeElements.Enqueue(new Position(0, i));
+                    snakeElements.Enqueue(new Position(1, i));
                 }
+                //boundary
+                Boundary();
 
                 //create food
                 do
@@ -235,7 +243,7 @@ namespace Snake
                 {
                     prevUserPoints = userExists(username);
                     Draw(new Position((Console.WindowHeight - 1) / 2 + menuLine, ((Console.WindowWidth - 1) / 2)), $"Username: {username} , Previous Points: {prevUserPoints}", ConsoleColor.Green);
-                    menuLine++;      
+                    menuLine++;
                 }
                 for (int i = 0; i < items.Count; i++)
                 {
@@ -271,7 +279,25 @@ namespace Snake
                 return "";
             }
 
+            void Boundary()
+            {
+                leftBoundary = new List<Position>();
+                rightBoundary = new List<Position>();
+                bottomBoundary = new List<Position>();
 
+                for (int i = 1; i < Console.WindowHeight - 1; i++)
+                {
+                    leftBoundary.Add(new Position(i, 0));
+                }
+                for (int i = 1; i < Console.WindowHeight - 1; i++)
+                {
+                    rightBoundary.Add(new Position(i, Console.WindowWidth - 1));
+                }
+                for (int i = 0; i < Console.WindowWidth - 1; i++)
+                {
+                    bottomBoundary.Add(new Position(Console.WindowHeight - 1, i));
+                }
+            }
             //main game loop
             void play()
             {
@@ -282,6 +308,18 @@ namespace Snake
                     //hides cursor
                     Console.CursorVisible = false;
                     negativePoints++;
+                    foreach (Position boundary in leftBoundary)
+                    {
+                        Draw(boundary, "▌", ConsoleColor.Green);
+                    }
+                    foreach (Position boundary in rightBoundary)
+                    {
+                        Draw(boundary, "▌", ConsoleColor.Green);
+                    }
+                    foreach (Position boundary in bottomBoundary)
+                    {
+                        Draw(boundary, "▀", ConsoleColor.Green);
+                    }
 
                     //This draws the obstacles on the screen
                     foreach (Position obstacle in obstacles)
@@ -337,7 +375,7 @@ namespace Snake
                     if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
                     {
                         Console.Beep(3000, 1000);
-                        remainingLives --;
+                        remainingLives--;
                         if (remainingLives < 0)
                         {
                             endGame("lose");
@@ -570,8 +608,8 @@ namespace Snake
             //for writing users and their points earned
             void storeValues(int points, string user, int hs)
             {
-                if(user.Length > 0)
-                {                  
+                if (user.Length > 0)
+                {
                     if (points > userExists(user))
                     {
                         var us = File.Open($"..\\..\\{user}.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
@@ -590,7 +628,7 @@ namespace Snake
                         sw.Close();
                     }
                 }
-                
+
             }
             //checks if user exists and returns their previous score or else returns 0;
             int userExists(string user)
