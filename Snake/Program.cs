@@ -309,7 +309,7 @@ namespace Snake
                     if (Console.KeyAvailable)
                     {
                         //The controls of the snake
-                        ConsoleKeyInfo userInput = Console.ReadKey();
+                        ConsoleKeyInfo userInput = Console.ReadKey(true);
                         snakeMove(userInput);
                     }
 
