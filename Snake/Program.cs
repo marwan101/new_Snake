@@ -55,6 +55,7 @@ namespace Snake
             int direction;
             int remainingLives;
             int prevUserPoints;
+            List<string> scoreboard = new List<string>();
 
             //random number generator
             Random randomNumbersGenerator = new Random();
@@ -214,6 +215,7 @@ namespace Snake
                     {
                         "Play",
                         "Username",
+                        "Scoreboard",
                         "Quit"
                     };
                 Console.CursorVisible = false;
@@ -235,6 +237,25 @@ namespace Snake
                         Position userNamePos = new Position((Console.WindowHeight - 1) / 2, ((Console.WindowWidth - 1) / 2) - 10);
                         Draw(userNamePos, "Enter your username: ", ConsoleColor.Green);
                         username = Console.ReadLine();
+                    }
+                    else if (selectedMenuItem == "Scoreboard")
+                    {
+                        Console.Clear();
+                        if (scoreboard.Any())
+                        {
+                            for (int i = 0; i < 10 && i < scoreboard.Count; i++)
+                            {
+                                Position scoreboardPos = new Position((Console.WindowHeight / 2) + i, (Console.WindowWidth - 1) / 2);
+                                Draw(scoreboardPos, scoreboard[i], ConsoleColor.Green);
+                            }
+                        }
+                        else
+                        {
+                            Position userNamePos = new Position((Console.WindowHeight - 1) / 2, ((Console.WindowWidth - 1) / 2) - 10);
+                            Draw(userNamePos, "No stored user scores...", ConsoleColor.Green);
+                        }
+                        Console.ReadLine();
+
                     }
                     else if (selectedMenuItem == "Quit")
                     {
@@ -635,6 +656,11 @@ namespace Snake
                     Draw(pointsPos, points, ConsoleColor.Red);
                     Draw(scorePos, highScoreString, ConsoleColor.Red);
                     storeValues(userPoints, username, highScoreValue);
+                }
+
+                if (username != "")
+                {
+                    scoreboard.Insert(0, $"Username: {username} , Score: {userPoints}");
                 }
             }
 
