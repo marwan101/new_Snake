@@ -92,6 +92,10 @@ namespace Snake
             Position food;
             //stores specialFood location
             Position specialFood;
+            //stores trap location
+            Position trap;
+            //stores reward location
+            Position reward;
             //store menu items
             List<string> menuItem;
             //selected menu item
@@ -187,7 +191,19 @@ namespace Snake
                 }
                 while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
 
-
+                //create trap
+                do
+                {
+                    trap = newRandomPosition();
+                }
+                while (snakeElements.Contains(trap) || obstacles.Contains(trap) || Nobstacles.Contains(trap));
+                
+                //create reward
+                do
+                {
+                    reward = newRandomPosition();
+                }
+                while (snakeElements.Contains(reward) || obstacles.Contains(reward) || Nobstacles.Contains(reward));
             }
 
             //MENU
@@ -336,8 +352,10 @@ namespace Snake
                     {
                         Draw(position, "*", ConsoleColor.DarkGray);
                     }
-                    //Draws the food on the console
+                    //Draws the food,trap,reward on the console
                     Draw(food, "♥♥", ConsoleColor.Yellow);
+                    Draw(trap, "♥♥", ConsoleColor.DarkYellow);
+                    Draw(reward, "♥♥", ConsoleColor.DarkYellow);
                     if (foodCounter >= 5)
                     {
                         Draw(specialFood, "&", ConsoleColor.Green);
@@ -462,7 +480,33 @@ namespace Snake
                         {
                             specialFood = newRandomPosition();
                         } while (snakeElements.Contains(specialFood) || obstacles.Contains(specialFood) || Nobstacles.Contains(specialFood));
-                        Draw(specialFood, " ");
+                        Draw(specialFood, "   ");
+                    }
+                    else if (snakeNewHead.col == trap.col && snakeNewHead.row == trap.row)
+                    {
+                        Console.Beep();
+                        remainingLives = -1;
+                        Draw(reward, "  ");
+                        do
+                        {
+                            trap = newRandomPosition();
+                            reward = newRandomPosition();
+                        } while (snakeElements.Contains(trap) || obstacles.Contains(trap) || Nobstacles.Contains(trap));
+                        Draw(trap, "♥♥", ConsoleColor.DarkYellow);
+                        Draw(reward, "♥♥", ConsoleColor.DarkYellow);
+                    }
+                    else if (snakeNewHead.col == reward.col && snakeNewHead.row == reward.row)
+                    {
+                        Console.Beep();
+                        remainingLives = +1;
+                        Draw(trap, "  ");
+                        do
+                        {
+                            trap = newRandomPosition();
+                            reward = newRandomPosition();
+                        } while (snakeElements.Contains(reward) || obstacles.Contains(reward) || Nobstacles.Contains(reward));
+                        Draw(trap, "♥♥", ConsoleColor.DarkYellow);
+                        Draw(reward, "♥♥", ConsoleColor.DarkYellow);
                     }
                     else
                     {
