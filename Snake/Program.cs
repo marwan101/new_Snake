@@ -426,7 +426,7 @@ namespace Snake
                     {
                         Console.Beep(2000, 1500);
                         remainingLives = -1;
-                        if (remainingLives < 0)
+                        if (remainingLives <= 0)
                         {
                             endGame("lose");
                             restart();
@@ -506,7 +506,7 @@ namespace Snake
                     else if (snakeNewHead.col == trap.col && snakeNewHead.row == trap.row)
                     {
                         Console.Beep();
-                        remainingLives = -1;
+                        remainingLives = remainingLives - 1;
                         Draw(reward, "  ");
                         do
                         {
@@ -515,11 +515,16 @@ namespace Snake
                         } while (snakeElements.Contains(trap) || obstacles.Contains(trap) || Nobstacles.Contains(trap));
                         Draw(trap, "♥♥", ConsoleColor.DarkYellow);
                         Draw(reward, "♥♥", ConsoleColor.DarkYellow);
+                        if (remainingLives <= 0)
+                        {
+                            endGame("lose");
+                            restart();
+                        }
                     }
                     else if (snakeNewHead.col == reward.col && snakeNewHead.row == reward.row)
                     {
                         Console.Beep();
-                        remainingLives = +1;
+                        remainingLives = remainingLives + 1;
                         Draw(trap, "  ");
                         do
                         {
