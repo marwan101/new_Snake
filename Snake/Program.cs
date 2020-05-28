@@ -425,7 +425,7 @@ namespace Snake
                     if (Nobstacles.Contains(snakeNewHead))
                     {
                         Console.Beep(2000, 1500);
-                        remainingLives = -1;
+                        remainingLives = remainingLives-1;
                         if (remainingLives <= 0)
                         {
                             endGame("lose");
