@@ -23,18 +23,30 @@ namespace Snake
 
     class Program
     {
-        static void PlayMusic()
+        static void PlayMusic(string type)
         {
-            System.Media.SoundPlayer bgm = new System.Media.SoundPlayer
+            if(type == "main")
             {
-                SoundLocation = "../../bgm.wav"
-            };
-            bgm.PlayLooping();
+                System.Media.SoundPlayer bgm = new System.Media.SoundPlayer
+                {
+                    SoundLocation = "../../bgm.wav"
+                };
+                bgm.PlayLooping();
+            }
+            else if(type == "end")
+            {
+                System.Media.SoundPlayer bgm = new System.Media.SoundPlayer
+                {
+                    SoundLocation = "../../menumusic.wav"
+                };
+                bgm.PlayLooping();
+            }
+            
         }
 
         static void Main(string[] args)
         {
-            //PlayMusic();
+            PlayMusic("end");
             byte right = 0;
             byte left = 1;
             byte down = 2;
@@ -338,6 +350,7 @@ namespace Snake
             //main game loop
             void play()
             {
+                PlayMusic("main");
                 //initialises variables
                 initialise();
                 while (gameFlag)
@@ -646,9 +659,10 @@ namespace Snake
                 Position gameOver = new Position((Console.WindowHeight - 1) / 2, ((Console.WindowWidth - 1) / 2) - points.Length / 2);
                 Position pointsPos = new Position(((Console.WindowHeight - 1) / 2) + 1, ((Console.WindowWidth - 1) / 2) - points.Length / 2);
                 Position scorePos = new Position(((Console.WindowHeight - 1) / 2) + 2, ((Console.WindowWidth - 1) / 2) - points.Length / 2);
-
+                
                 if (outcome == "win")
                 {
+                    PlayMusic("end");
                     Draw(gameOver, congratulation, ConsoleColor.Green);
                     Draw(pointsPos, points, ConsoleColor.Green);
                     Draw(scorePos, highScoreString, ConsoleColor.Green);
@@ -657,6 +671,7 @@ namespace Snake
                 }
                 else if (outcome == "lose")
                 {
+                    PlayMusic("end");
                     Draw(gameOver, lose, ConsoleColor.Red);
                     Draw(pointsPos, points, ConsoleColor.Red);
                     Draw(scorePos, highScoreString, ConsoleColor.Red);
