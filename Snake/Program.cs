@@ -9,23 +9,28 @@ using System.IO;
 
 namespace Snake
 {
-    //stores the position of objects on the console
-    struct Position
-    {
-        public int row;
-        public int col;
-        public Position(int row, int col)
-        {
-            this.row = row;
-            this.col = col;
-        }
-    }
 
-    class Program
+
+    //returns a new random position inside the console
+
+    public class Program
     {
+        //random number generator
+        public static Random randomNumbersGenerator = new Random();
+        //stores the position of objects on the console
+        public struct Position
+        {
+            public int row;
+            public int col;
+            public Position(int row, int col)
+            {
+                this.row = row;
+                this.col = col;
+            }
+        }
         static void PlayMusic(string type)
         {
-            if(type == "main")
+            if(type == "game")
             {
                 System.Media.SoundPlayer bgm = new System.Media.SoundPlayer
                 {
@@ -33,7 +38,7 @@ namespace Snake
                 };
                 bgm.PlayLooping();
             }
-            else if(type == "end")
+            else if(type == "main")
             {
                 System.Media.SoundPlayer bgm = new System.Media.SoundPlayer
                 {
@@ -41,12 +46,16 @@ namespace Snake
                 };
                 bgm.PlayLooping();
             }
-            
         }
-
+        public static Position newRandomPosition(int windowHeight, int windowWidth)
+        {
+            Position newPosition = new Position(randomNumbersGenerator.Next(2, windowHeight - 1),
+                    randomNumbersGenerator.Next(2, windowWidth - 1));
+            return newPosition;
+        }
         static void Main(string[] args)
         {
-            PlayMusic("end");
+            PlayMusic("main");
             byte right = 0;
             byte left = 1;
             byte down = 2;
@@ -68,9 +77,10 @@ namespace Snake
             int remainingLives;
             int prevUserPoints;
             List<string> scoreboard = new List<string>();
+            int windowHeight;
+            int windowWidth;
 
-            //random number generator
-            Random randomNumbersGenerator = new Random();
+
 
             //makes the number of rows that can be accessed on a console equal to the height of the window
             Console.BufferHeight = Console.WindowHeight;
@@ -123,15 +133,6 @@ namespace Snake
 
             //METHOD DEFINITIONS 
 
-
-            //returns a new random position inside the console
-            Position newRandomPosition()
-            {
-                Position newPosition = new Position(randomNumbersGenerator.Next(2, Console.WindowHeight - 1),
-                        randomNumbersGenerator.Next(2, Console.WindowWidth - 1));
-                return newPosition;
-            }
-
             //Draws objects on the console
             void Draw(Position pos, string drawable, ConsoleColor color = ConsoleColor.Yellow)
             {
@@ -143,6 +144,8 @@ namespace Snake
             //initialisation of important variables needed to run the game
             void initialise()
             {
+                windowHeight = Console.WindowHeight;
+                windowWidth = Console.WindowWidth;
                 remainingLives = 3;
                 prevUserPoints = 0;
                 direction = right;
@@ -160,11 +163,11 @@ namespace Snake
                 obstacles = new List<Position>()
                 {
                 //-1 prevents the obstacle from spawaning on the userpoints display
-                    newRandomPosition(),
-                    newRandomPosition(),
-                    newRandomPosition(),
-                    newRandomPosition(),
-                    newRandomPosition(),
+                    newRandomPosition(windowHeight, windowWidth),
+                    newRandomPosition(windowHeight, windowWidth),
+                    newRandomPosition(windowHeight, windowWidth),
+                    newRandomPosition(windowHeight, windowWidth),
+                    newRandomPosition(windowHeight, windowWidth),
                 };
 
                 //create Position objects and stores them in Nobstacles
@@ -172,11 +175,11 @@ namespace Snake
                 Nobstacles = new List<Position>()
                 {
                 //-1 prevents the Nobstacle from spawaning on the userpoints display
-                    newRandomPosition(),
-                    newRandomPosition(),
-                    newRandomPosition(),
-                    newRandomPosition(),
-                    newRandomPosition(),
+                    newRandomPosition(windowHeight, windowWidth),
+                    newRandomPosition(windowHeight, windowWidth),
+                    newRandomPosition(windowHeight, windowWidth),
+                    newRandomPosition(windowHeight, windowWidth),
+                    newRandomPosition(windowHeight, windowWidth),
                 };
 
                 //Creates the snake using a queue data structure of length 3
@@ -193,28 +196,28 @@ namespace Snake
                 //create food
                 do
                 {
-                    food = newRandomPosition();
+                    food = newRandomPosition(windowHeight, windowWidth);
                 }
                 while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
 
                 //create special food
                 do
                 {
-                    specialFood = newRandomPosition();
+                    specialFood = newRandomPosition(windowHeight, windowWidth);
                 }
                 while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
 
                 //create trap
                 do
                 {
-                    trap = newRandomPosition();
+                    trap = newRandomPosition(windowHeight, windowWidth);
                 }
                 while (snakeElements.Contains(trap) || obstacles.Contains(trap) || Nobstacles.Contains(trap));
                 
                 //create reward
                 do
                 {
-                    reward = newRandomPosition();
+                    reward = newRandomPosition(windowHeight, windowWidth);
                 }
                 while (snakeElements.Contains(reward) || obstacles.Contains(reward) || Nobstacles.Contains(reward));
             }
@@ -350,7 +353,7 @@ namespace Snake
             //main game loop
             void play()
             {
-                PlayMusic("main");
+                PlayMusic("game");
                 //initialises variables
                 initialise();
                 while (gameFlag)
@@ -474,7 +477,7 @@ namespace Snake
 
                         do
                         {
-                            food = newRandomPosition();
+                            food = newRandomPosition(windowHeight, windowWidth);
                         }
                         while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
                         lastFoodTime = Environment.TickCount;
@@ -487,7 +490,7 @@ namespace Snake
                         Position obstacle;
                         do
                         {
-                            obstacle = newRandomPosition();
+                            obstacle = newRandomPosition(windowHeight, windowWidth);
                         }
                         while (snakeElements.Contains(obstacle) || obstacles.Contains(obstacle) || (food.row != obstacle.row && food.col != obstacle.row));
                         //adds obstacle in the list of obstacles and draw the obstacle
@@ -498,7 +501,7 @@ namespace Snake
                         Position Nobstacle;
                         do
                         {
-                            Nobstacle = newRandomPosition();
+                            Nobstacle = newRandomPosition(windowHeight, windowWidth);
                         }
                         while (snakeElements.Contains(Nobstacle) || Nobstacles.Contains(Nobstacle) || (food.row != Nobstacle.row && food.col != Nobstacle.row));
                         //adds obstacle in the list of obstacles and draw the obstacle
@@ -512,7 +515,7 @@ namespace Snake
                         specialFoodCounter++;
                         do
                         {
-                            specialFood = newRandomPosition();
+                            specialFood = newRandomPosition(windowHeight, windowWidth);
                         } while (snakeElements.Contains(specialFood) || obstacles.Contains(specialFood) || Nobstacles.Contains(specialFood));
                         Draw(specialFood, "   ");
                     }
@@ -523,8 +526,8 @@ namespace Snake
                         Draw(reward, "  ");
                         do
                         {
-                            trap = newRandomPosition();
-                            reward = newRandomPosition();
+                            trap = newRandomPosition(windowHeight, windowWidth);
+                            reward = newRandomPosition(windowHeight, windowWidth);
                         } while (snakeElements.Contains(trap) || obstacles.Contains(trap) || Nobstacles.Contains(trap));
                         Draw(trap, "♥♥", ConsoleColor.DarkYellow);
                         Draw(reward, "♥♥", ConsoleColor.DarkYellow);
@@ -541,8 +544,8 @@ namespace Snake
                         Draw(trap, "  ");
                         do
                         {
-                            trap = newRandomPosition();
-                            reward = newRandomPosition();
+                            trap = newRandomPosition(windowHeight, windowWidth);
+                            reward = newRandomPosition(windowHeight, windowWidth);
                         } while (snakeElements.Contains(reward) || obstacles.Contains(reward) || Nobstacles.Contains(reward));
                         Draw(trap, "♥♥", ConsoleColor.DarkYellow);
                         Draw(reward, "♥♥", ConsoleColor.DarkYellow);
@@ -566,7 +569,7 @@ namespace Snake
                         Draw(food, " ");
                         do
                         {
-                            food = newRandomPosition();
+                            food = newRandomPosition(windowHeight, windowWidth);
                         }
                         while (snakeElements.Contains(food) || obstacles.Contains(food) || Nobstacles.Contains(food));
                         lastFoodTime = Environment.TickCount;
@@ -662,7 +665,7 @@ namespace Snake
                 
                 if (outcome == "win")
                 {
-                    PlayMusic("end");
+                    PlayMusic("main");
                     Draw(gameOver, congratulation, ConsoleColor.Green);
                     Draw(pointsPos, points, ConsoleColor.Green);
                     Draw(scorePos, highScoreString, ConsoleColor.Green);
@@ -671,7 +674,7 @@ namespace Snake
                 }
                 else if (outcome == "lose")
                 {
-                    PlayMusic("end");
+                    PlayMusic("main");
                     Draw(gameOver, lose, ConsoleColor.Red);
                     Draw(pointsPos, points, ConsoleColor.Red);
                     Draw(scorePos, highScoreString, ConsoleColor.Red);
