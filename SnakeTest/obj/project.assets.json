@@ -5731,19 +5731,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\marwa\\.nuget\\packages\\": {}
+    "C:\\Users\\Brendan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\c#\\NewSnake\\SnakeTest\\SnakeTest.csproj",
+      "projectUniqueName": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeTest\\SnakeTest.csproj",
       "projectName": "SnakeTest",
-      "projectPath": "D:\\c#\\NewSnake\\SnakeTest\\SnakeTest.csproj",
-      "packagesPath": "C:\\Users\\marwa\\.nuget\\packages\\",
-      "outputPath": "D:\\c#\\NewSnake\\SnakeTest\\obj\\",
+      "projectPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeTest\\SnakeTest.csproj",
+      "packagesPath": "C:\\Users\\Brendan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\marwa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Brendan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5756,8 +5756,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\c#\\NewSnake\\Snake\\Snake.csproj": {
-              "projectPath": "D:\\c#\\NewSnake\\Snake\\Snake.csproj"
+            "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj": {
+              "projectPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj"
             }
           }
         }
@@ -5803,7 +5803,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

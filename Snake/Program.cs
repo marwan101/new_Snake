@@ -53,6 +53,17 @@ namespace Snake
                     randomNumbersGenerator.Next(2, windowWidth - 1));
             return newPosition;
         }
+
+        //Calculate points
+        public static int calculatePoints(Queue<Position> Snake, int pointsBehind, int specialFood)
+        {
+            int Points = (Snake.Count - 4) * 100 - pointsBehind;
+            Points += specialFood * 300;
+            if (Points < 0) Points = 0;
+            Points = Math.Max(Points, 0);
+            return Points;
+        }
+
         static void Main(string[] args)
         {
             PlayMusic("main");
@@ -64,7 +75,6 @@ namespace Snake
             int lastFoodTime;
             //the time till the food spawns again
             int foodDissapearTime = 10000;
-            int userPoints;
             int highScoreValue = highScore();
             int negativePoints = 0;
             double sleepTime = 100;
@@ -99,6 +109,7 @@ namespace Snake
             //Creates the snake using a queue data structure of length 3
             //Queue operates as a first-in first-out array
             Queue<Position> snakeElements;
+            snakeElements = new Queue<Position>();
             //boundaries
             List<Position> leftBoundary;
             List<Position> rightBoundary;
@@ -123,6 +134,8 @@ namespace Snake
             List<string> menuItem;
             //selected menu item
             int index = 0;
+            //User point
+            int userPoints = (snakeElements.Count - 4) * 100 - negativePoints;
             //initialises variables before game starts
             initialise();
 
@@ -132,6 +145,8 @@ namespace Snake
             //END OF GAME 
 
             //METHOD DEFINITIONS 
+
+            
 
             //Draws objects on the console
             void Draw(Position pos, string drawable, ConsoleColor color = ConsoleColor.Yellow)
@@ -183,8 +198,6 @@ namespace Snake
                 };
 
                 //Creates the snake using a queue data structure of length 3
-                //Queue operates as a first-in first-out array
-                snakeElements = new Queue<Position>();
                 //sets the length of snake equal to 3
                 for (int i = 0; i <= 3; i++)
                 {
@@ -419,7 +432,7 @@ namespace Snake
                     snakeExitScreen();
 
                     //user points calculation
-                    calculatePoints();
+                    calculatePoints(snakeElements, negativePoints, specialFoodCounter);
 
                     //displays points while playing game
                     displayPoints();
@@ -620,14 +633,6 @@ namespace Snake
                 if (snakeNewHead.row <= 0) snakeNewHead.row = Console.WindowHeight - 2;
                 if (snakeNewHead.row >= Console.WindowHeight - 1) snakeNewHead.row = 1;
                 if (snakeNewHead.col >= Console.WindowWidth - 1) snakeNewHead.col = 2;
-            }
-
-            void calculatePoints()
-            {
-                userPoints = (snakeElements.Count - 4) * 100 - negativePoints;
-                userPoints += specialFoodCounter * 300;
-                if (userPoints < 0) userPoints = 0;
-                userPoints = Math.Max(userPoints, 0);
             }
 
             //displays the user points during gameplay
