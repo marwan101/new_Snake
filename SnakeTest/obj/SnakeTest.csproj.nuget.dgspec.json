@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeTest\\SnakeTest.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\SnakeTest\\SnakeTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeTest\\SnakeTest.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\SnakeTest\\SnakeTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeTest\\SnakeTest.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\SnakeTest\\SnakeTest.csproj",
         "projectName": "SnakeTest",
-        "projectPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeTest\\SnakeTest.csproj",
-        "packagesPath": "C:\\Users\\Brendan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeTest\\obj\\",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\SnakeTest\\SnakeTest.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\SnakeTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Brendan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,8 +27,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj": {
-                "projectPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj"
+              "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\Snake\\Snake.csproj": {
+                "projectPath": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\Snake\\Snake.csproj"
               }
             }
           }
@@ -78,12 +78,12 @@
         }
       }
     },
-    "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\Snake\\Snake.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\Snake\\Snake.csproj",
         "projectName": "Snake",
-        "projectPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj"
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\Snake\\Snake.csproj"
       },
       "frameworks": {
         "net45": {}

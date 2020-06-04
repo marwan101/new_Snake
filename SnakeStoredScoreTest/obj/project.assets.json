@@ -5731,19 +5731,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Brendan\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeStoredScoreTest\\SnakeStoredScoreTest.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\SnakeStoredScoreTest\\SnakeStoredScoreTest.csproj",
       "projectName": "SnakeStoredScoreTest",
-      "projectPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeStoredScoreTest\\SnakeStoredScoreTest.csproj",
-      "packagesPath": "C:\\Users\\Brendan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\SnakeStoredScoreTest\\obj\\",
+      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\SnakeStoredScoreTest\\SnakeStoredScoreTest.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\SnakeStoredScoreTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Brendan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5756,8 +5756,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj": {
-              "projectPath": "C:\\Users\\Brendan\\Desktop\\new_Snake\\Snake\\Snake.csproj"
+            "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\Snake\\Snake.csproj": {
+              "projectPath": "C:\\Users\\User\\Documents\\GitHub\\new_Snake\\Snake\\Snake.csproj"
             }
           }
         }

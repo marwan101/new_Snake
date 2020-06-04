@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Snake"
+    "\\Snake",
+    "\\SnakeStoredScoreTest",
+    "\\SnakeTest"
   ],
-  "SelectedNode": "\\Snake\\Program.cs",
+  "SelectedNode": "\\Snake\\Snake.sln",
   "PreviewInSolutionExplorer": false
 }
