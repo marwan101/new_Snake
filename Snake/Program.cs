@@ -55,7 +55,7 @@ namespace Snake
         }
 
         //Calculate points
-        public static int calculatePoints(Queue<Position> Snake, int pointsBehind, int specialFood)
+        public static int calculateUserPoints(Queue<Position> Snake, int pointsBehind, int specialFood)
         {
             int Points = (Snake.Count - 4) * 100 - pointsBehind;
             Points += specialFood * 300;
@@ -63,6 +63,9 @@ namespace Snake
             Points = Math.Max(Points, 0);
             return Points;
         }
+
+
+        
 
         static void Main(string[] args)
         {
@@ -134,8 +137,8 @@ namespace Snake
             List<string> menuItem;
             //selected menu item
             int index = 0;
-            //User point
-            int userPoints = (snakeElements.Count - 4) * 100 - negativePoints;
+            //User points
+            int userPoints;
             //initialises variables before game starts
             initialise();
 
@@ -432,7 +435,7 @@ namespace Snake
                     snakeExitScreen();
 
                     //user points calculation
-                    calculatePoints(snakeElements, negativePoints, specialFoodCounter);
+                    calculatePoints();
 
                     //displays points while playing game
                     displayPoints();
@@ -633,6 +636,14 @@ namespace Snake
                 if (snakeNewHead.row <= 0) snakeNewHead.row = Console.WindowHeight - 2;
                 if (snakeNewHead.row >= Console.WindowHeight - 1) snakeNewHead.row = 1;
                 if (snakeNewHead.col >= Console.WindowWidth - 1) snakeNewHead.col = 2;
+            }
+
+            void calculatePoints()
+            {
+                userPoints = (snakeElements.Count - 4) * 100 - negativePoints;
+                userPoints += specialFoodCounter * 300;
+                if (userPoints < 0) userPoints = 0;
+                userPoints = Math.Max(userPoints, 0);
             }
 
             //displays the user points during gameplay

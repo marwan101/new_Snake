@@ -16,7 +16,7 @@ namespace SnakeStoredScoreTest
             {
                 snakeBody.Enqueue(new Program.Position(1, i));
             }
-            Assert.AreEqual(300, Program.calculatePoints(snakeBody, 0, 1));
+            Assert.AreEqual(300, Program.calculateUserPoints(snakeBody, 0, 1));
         }
     }
 }
